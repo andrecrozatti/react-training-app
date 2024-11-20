@@ -7,10 +7,11 @@ const PostContainer = styled.div`
   flex-direction: column;
   gap: 8px;
   padding: 15px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #fff;
   background-color: #1e1e1e;
   color: #ffffff;
   font-family: Arial, sans-serif;
+  margin-top: 10px;
 
   &:hover {
     background-color: #222;
@@ -78,7 +79,7 @@ type BlogPostProps = {
 
 const BlogPost: React.FC<BlogPostProps> = ({ author, time, title, content, likes, comments, shares }) => {
   return (
-    <PostContainer>
+    <PostContainer >
       <Header>
         <span><strong>{author}</strong></span>
         <CustomSpan>{time}</CustomSpan>

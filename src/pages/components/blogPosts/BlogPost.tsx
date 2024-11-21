@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import './styles/posts.css'
+
 // Estilização do contêiner principal do post
 const PostContainer = styled.div`
   display: flex;

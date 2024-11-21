@@ -1,0 +1,50 @@
+.comments-section {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+  
+  /* Estilo individual de um comentário */
+  .comment {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #2e2e2e;
+    border-radius: 6px;
+    color: #d1d1d1;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  /* Nome do autor do comentário */
+  .comment-author {
+    color: #1da1f2;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  /* Corpo do comentário */
+  .comment-body {
+    color: #ffffff;
+  }
+  
+  /* Último comentário sem margem inferior */
+  .comment:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Botões de ação */
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #1da1f2;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  button:hover {
+    color: #ffffff;
+  }

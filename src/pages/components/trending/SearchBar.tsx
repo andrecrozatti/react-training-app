@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './styles/trending.css'
 
 const SearchBar: React.FC = (): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState('');

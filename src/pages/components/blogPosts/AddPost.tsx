@@ -8,9 +8,29 @@ const AddPost: React.FC = () => {
         setPostContent(event.target.value);
     };
 
+
+    // Implementar a função handlePostSubmit para enviar o post ao clicar no botão "Postar"
+    // A função deve mostrar uma alerta com o conteúdo do post enviado e limpar o campo de entrada.
     const handlePostSubmit = () => {
         if (postContent.trim()) {
             alert(`Post enviado: ${postContent}`);
+
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title: 'Title 1',
+                    body: postContent,
+                    userId: 1,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
+            .catch((err) => alert(err));
+            
+
             setPostContent('');
         } else {
             alert('O post não pode estar vazio.');
@@ -19,7 +39,7 @@ const AddPost: React.FC = () => {
 
     return (
         <div style={{ margin: '0 auto', padding: '20px', background: '#1E1E1E', color: '#FFFFFF', borderRadius: '8px' }}>
-            
+
             <TextAreaBlog
                 value={postContent}
                 onChange={handlePostChange}

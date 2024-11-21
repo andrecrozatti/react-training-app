@@ -1,5 +1,5 @@
 import React from 'react';
-// import './Menu.css';
+import './styles/menu.css';
 
 const Menu: React.FC = (): JSX.Element => {
   return (

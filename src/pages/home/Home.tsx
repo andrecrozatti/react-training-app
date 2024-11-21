@@ -14,7 +14,7 @@ const Home: React.FC<any> = () => {
                 <Menu />
             </header>
             <main className="main-blog border-section">
-                <h2 style={{ textAlign: "center" }}>Blog App</h2>
+                <h4 style={{ textAlign: "center" }}>Blog App</h4>
                 <ListBlogPosts />
             </main>
             <aside className="features-blog">

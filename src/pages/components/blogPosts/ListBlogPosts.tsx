@@ -1,50 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AddPost from './AddPost';
 import BlogPost from './BlogPost';
 
 type BlogPostData = {
-  author: string;
-  time: string;
-  content: string;
-  likes: number;
-  comments: number;
-  shares: number;
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 };
 
 const ListBlogPosts: React.FC = (): JSX.Element => {
-  // Dados de exemplo. Normalmente, isso viria de uma API ou estado.
-  const posts: BlogPostData[] = [
-    {
-      author: 'André',
-      time: '20 de nov',
-      content: 'O Vite é uma ferramenta incrível para desenvolvimento web. Ele permite que você escreva código mais rápido e eficazmente.',
-      likes: 450,
-      comments: 60,
-      shares: 14,
-    },
-    {
-      author: 'Mia 🌟 || cr',
-      time: '19 de nov',
-      content: 'Opinião impopular: livros com diálogos em travessão são MUITO superiores a diálogos com aspas.',
-      likes: 571,
-      comments: 60,
-      shares: 14,
-    },
-    // Outros posts podem ser adicionados aqui
-  ];
+
+  const [posts, setPosts] = useState<BlogPostData[]>()
+
+  const fetchPosts = async (): Promise<BlogPostData[]> => {
+
+    return await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(json => json)
+  }
+
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      setPosts((await fetchPosts()).slice(0, 5))
+    };
+
+    fetchAllPosts()
+
+  }, [])
+
 
   return (
     <div>
-      <AddPost />
-      {posts.map((post, index) => (
+      <AddPost />      
+      {posts?.map((post, index) => (
         <BlogPost
           key={index}
-          author={post.author}
-          time={post.time}
-          content={post.content}
-          likes={post.likes}
-          comments={post.comments}
-          shares={post.shares}
+          id={post.id}
+          userId={post.userId}
+          title={post.title}
+          body={post.body}
         />
       ))}
     </div>

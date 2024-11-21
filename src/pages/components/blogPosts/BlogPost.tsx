@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // Estilização do contêiner principal do post
@@ -68,31 +68,101 @@ const ActionButtons = styled.div`
 `;
 
 type BlogPostProps = {
-  author: string;
-  time: string;
-  title?: string;
-  content: string;
-  likes: number;
-  comments: number;
-  shares: number;
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 };
 
-const BlogPost: React.FC<BlogPostProps> = ({ author, time, title, content, likes, comments, shares }) => {
+type UserPostProps = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
+
+type CommentsProps = {
+
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+
+}
+
+
+const BlogPost: React.FC<BlogPostProps> = ({ userId, id, title, body }) => {
+
+
+  const [userName, setUserName] = useState<string>("");
+  const [comments, setComments] = useState<CommentsProps[]>([]);
+  const [showComments, setShowComments] = useState<boolean>(false)
+  const [shares, setShares] = useState<number>(0);
+  const [likes, setLikes] = useState<number>(0);
+
+  const loadPosts = async (): Promise<UserPostProps> => {
+
+    return await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+      .then(response => response.json())
+      .then(json => json)
+  }
+
+  const loadComments = async (): Promise<CommentsProps[]> => {
+
+    return await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+      .then(response => response.json())
+      .then(json => json)
+  }
+
+  const handleShowComments = () => {
+
+    setShowComments(!showComments)
+  }
+
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      var user = await loadPosts()
+      setUserName(user.name)
+    };
+
+    const fetchCommentsFromPost = async () => {
+      setComments(await loadComments())
+    };
+
+    fetchAllPosts()
+    fetchCommentsFromPost()
+  }, [])
+
+
+
   return (
-    <PostContainer >
+    <PostContainer>
       <Header>
-        <span><strong>{author}</strong></span>
-        <CustomSpan>{time}</CustomSpan>
+        <span><strong>{userName}</strong></span>
+        <CustomSpan>{new Date().toLocaleDateString()}</CustomSpan>
       </Header>
       {title && <h3 style={{ margin: '0', fontSize: '18px', color: '#ffffff' }}>{title}</h3>}
-      <Content>{content}</Content>
+      <Content>{body}</Content>
       <Footer>
         <ActionButtons>
-          <button>💬 {comments} Comentários</button>
+          <button onClick={handleShowComments}>💬 {comments.length} Comentários</button>
           <button>🔁 {shares} Compartilhamentos</button>
           <button>❤️ {likes} Curtidas</button>
         </ActionButtons>
       </Footer>
+      {showComments && (
+        <div className="comments-section">
+          {comments.map(comment => (
+            <div key={comment.id} className="comment">
+              <small>
+                <strong className="comment-author">{comment.name}</strong> - <span className="comment-body">{comment.body}</span>
+              </small>
+            </div>
+          ))}
+        </div>
+      )}
     </PostContainer>
   );
 };

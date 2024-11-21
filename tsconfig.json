@@ -3,5 +3,22 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx", // Habilita suporte ao JSX para React 17+
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": "./src", // Ajuste conforme a estrutura do seu projeto
+    "paths": {
+      "@components/*": ["components/*"] // Se você estiver usando aliases
+    }
+  },
 }

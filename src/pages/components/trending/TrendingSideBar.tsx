@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../../../context/ThemeContext';
 
 // Contêiner principal
 const SidebarContainer = styled.div`
   
   padding: 15px;
-  background-color: #1e1e1e;
-  color: #ffffff;
+
   border-radius: 10px;
   font-family: Arial, sans-serif;
 `;
@@ -33,20 +33,20 @@ const TrendingItem = styled.div`
 // Categoria e Assunto
 const Category = styled.span`
   font-size: 12px;
-  color: #a9a9a9;
+  
 `;
 
 const Topic = styled.span`
   font-size: 16px;
   font-weight: bold;
-  color: #ffffff;
+
   margin-top: 5px;
 `;
 
 // Posts associados
 const PostCount = styled.span`
   font-size: 12px;
-  color: #a9a9a9;
+
   margin-top: 5px;
 `;
 
@@ -55,7 +55,7 @@ const SeeMoreLink = styled.a`
   display: inline-block;
   margin-top: 15px;
   font-size: 14px;
-  color: #1da1f2;
+
   text-decoration: none;
 
   &:hover {
@@ -79,8 +79,10 @@ const TrendingSidebar: React.FC = (): JSX.Element => {
     { category: 'Assuntos do Momento', topic: 'Jogo do Vasco', postCount: 76000 },
   ];
 
+  const {theme} = useTheme()
+
   return (
-    <SidebarContainer className='border-section'>
+    <SidebarContainer className={`border-section-${theme}`}>
      
       <SectionTitle>O que está acontecendo</SectionTitle>
       {trends.map((trend, index) => (

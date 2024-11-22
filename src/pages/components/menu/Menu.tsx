@@ -1,9 +1,13 @@
 import React from 'react';
 import './styles/menu.css';
+import { useTheme } from '../../../context/ThemeContext';
 
 const Menu: React.FC = (): JSX.Element => {
+
+  const {theme} = useTheme()
+
   return (
-    <nav className="menu border-section">
+    <nav className={`menu border-section-${theme}`}>
       <ul className="menu-list">
         <li className="menu-item active">
           <span className="menu-icon">🏠</span>

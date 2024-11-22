@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './styles/trending.css'
+import { useTheme } from '../../../context/ThemeContext';
 
 const SearchBar: React.FC = (): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  const {theme} = useTheme();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -14,7 +17,7 @@ const SearchBar: React.FC = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSearch} className='search-bar-form border-section' >
+    <form onSubmit={handleSearch} className={`search-bar-form border-section-${theme}`} >
       <input
         type="text"
         className='search-bar-input'
